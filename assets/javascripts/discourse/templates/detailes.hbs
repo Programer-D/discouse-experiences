@@ -1,0 +1,39 @@
+{{#if (eq model.State 200)}}
+  <a type="button" class="btn btn-primary" href="/postes?es_id={{model.ID}}">編集</a>
+{{/if}}
+<h1>提出先企業：{{model.Company}}</h1>
+<h1>選考タイプ：{{#if (eq model.ESType "intern") }}
+  インターン
+{{else}}
+  本選考
+{{/if}}</h1>
+<h2>部署:{{model.Department}}</h2>
+<h2>職種:{{model.Occupation}}</h2>
+
+<h3>大学名:{{model.University}}</h3>
+<h3>学部:{{model.Undergraduate}}</h3>
+<h3>学位:{{model.Degree}}</h3>
+<h3>提出時期:{{model.Year}}年{{model.Month}}月</h3>
+<h3>選考到達段階:
+  {{#if (eq model.HowLevel '1') }}
+    一次面接・GD
+  {{else if (eq model.HowLevel '2')}}
+    二次面接・GD
+  {{else if (eq model.HowLevel '3')}}
+    三次以降～最終面接
+  {{else if (eq model.HowLevel '4')}}
+    内定・インターン参加
+  {{/if}}
+</h3>
+{{#each model.ESDataList as |es index|}}
+
+  <div class="es_question">
+    <h3>設問{{index}}</h3>
+    <strong>{{es.question}}</strong>
+  </div>
+  <div class="es_answer">
+    <h3>回答{{index}}</h3>
+    <p>{{es.answer}}</p>
+  </div>
+  <hr>
+{{/each}}

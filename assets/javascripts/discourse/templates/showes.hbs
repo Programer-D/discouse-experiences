@@ -1,0 +1,150 @@
+{{experiences_header}}
+<form id="search-entrysheet">
+  <p>業界選択</p>
+  <select name="industry" class="type_select">
+    <option value="">なし</option>
+    <option value=1>総合商社</option>
+    <option value=2>外資系コンサル</option>
+    <option value=3>外資系金融機関（投資銀行等）</option>
+    <option value=4>銀行</option>
+    <option value=5>証券</option>
+    <option value=6>保険</option>
+    <option value=7>テレビ</option>
+    <option value=8>広告</option>
+    <option value=9>出版・印刷</option>
+    <option value=10>食品</option>
+    <option value=11>不動産</option>
+    <option value=12>国内コンサル・シンクタンク</option>
+    <option value=13>IT</option>
+    <option value=14>情報通信</option>
+    <option value=15>新聞・その他マスコミ</option>
+    <option value=16>専門商社</option>
+    <option value=17>百貨店</option>
+    <option value=18>その他流通・小売</option>
+    <option value=19>政府系・系統機関</option>
+    <option value=20>その他金融（カード・リース等）</option>
+    <option value=21>自動車・機械</option>
+    <option value=22>電機・精密</option>
+    <option value=23>素材</option>
+    <option value=24>製薬</option>
+    <option value=25>消費財・化粧品</option>
+    <option value=26>その他メーカー</option>
+    <option value=27>運輸・物流（陸運・海運・倉庫）</option>
+    <option value=28>エネルギー</option>
+    <option value=29>建設</option>
+    <option value=30>ホテル</option>
+    <option value=31>旅行</option>
+    <option value=32>エンタメ・レジャー</option>
+    <option value=33>人材・教育</option>
+    <option value=34>交通（鉄道・航空）</option>
+    <option value=35>その他サービス</option>
+  </select>
+  <hr>
+  <p>ES種類</p>
+  <select name="es_type" class="type_select">
+    <option value="">なし</option>
+    <option value="selection">本選考</option>
+    <option value="intern">インターン</option>
+  </select>
+  <hr>
+  <p>学位</p>
+  <select name="degree" class="type_select">
+    <option value="">なし</option>
+    <option value="学士">学士</option>
+    <option value="修士">修士</option>
+    <option value="博士">博士</option>
+  </select>
+  <hr>
+  <p>選考がどこまで進んだか</p>
+  <select name="how_level" class="type_select">
+    <option value="">なし</option>
+    <option value=1>一次面接・GD</option>
+    <option value=2>二次面接・GD</option>
+    <option value=3>三次以降～最終面接</option>
+    <option value=4>内定・インターン参加</option>
+  </select>
+  <hr>
+  <p>企業名(部分一致検索)</p>
+  <input type="text" name="company_name">
+
+  <hr>
+  <p>自分のESだけを検索</p>
+  <input type="checkbox" name="only_mine">
+</form>
+
+<button type="button" class='btn btn-primary' {{action "search"}}>検索</button>
+<div class="es_result width100" style="background-color: black">
+  <div style="color:white;padding-top: 0.3em;padding-bottom: 0.3em">
+    <strong style="display:inline-block;width:45%">
+      企業名
+    </strong>
+    　　
+    <strong style="display:inline-block;width:40%">
+      インターン/本選考
+    </strong>
+  </div>
+  <div style="color:white;padding-top: 0.3em;padding-bottom: 0.3em">
+    <strong style="display:inline-block;width:45%">
+      部署
+    </strong>
+    　　
+    <strong style="display:inline-block;width:40%">
+      職種
+    </strong>
+  </div>
+  <div style="color:white;padding-top: 0.3em;padding-bottom: 0.3em">
+    <strong style="display:inline-block;width:45%">
+      学位
+    </strong>
+    　　
+    <strong style="display:inline-block;width:40%">
+      選考到達度
+    </strong>
+  </div>
+</div>
+<div id="state"></div>
+<div id="es_result_list" style="margin-bottom: 200px">
+  <ul style="margin:0">
+    {{#each entrysheet_list as |es|}}
+      <li class="es_result width100">
+        <a class="width100" href="/detailes/{{es.ID}}" target="_blank" rel=”noopener”>
+          <div style="color:white;padding-top: 0.3em;padding-bottom: 0.3em">
+            <div style="display:inline-block;width:45%">
+              {{es.Company}}
+            </div>
+            　　
+            <div style="display:inline-block;width:40%">
+              {{#if (eq es.ESType "intern")}}
+                インターン{{else}}本選考{{/if}}
+            </div>
+          </div>
+          <div style="color:white;padding-top: 0.3em;padding-bottom: 0.3em">
+            <div style="display:inline-block;width:45%">
+              {{es.Department}}
+            </div>
+            　　
+            <div style="display:inline-block;width:40%">
+              {{es.Occupation}}
+            </div>
+          </div>
+          <div style="color:white;padding-top: 0.3em;padding-bottom: 0.3em">
+            <div style="display:inline-block;width:45%">
+              {{es.Degree}}
+            </div>
+            　　
+            <div style="display:inline-block;width:40%">
+              {{#if (eq es.HowLevel "1")}}一次面接・GD
+              {{else if (eq es.HowLevel "2")}}二次面接・GD
+              {{else if (eq es.HowLevel "3")}}三次以降～最終面接
+              {{else if (eq es.HowLevel "4")}}内定・インターン参加
+              {{/if}}
+            </div>
+          </div>
+        </a>
+      </li>
+      <hr>
+    {{/each}}
+  </ul>
+</div>
+
+{{outlet}}

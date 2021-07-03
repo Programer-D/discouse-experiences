@@ -1,0 +1,3 @@
+plugins:
+  experiences_enabled:
+    default: true

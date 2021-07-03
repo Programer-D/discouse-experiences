@@ -1,0 +1,140 @@
+{{experiences_header}}
+<h1>エントリーシート投稿フォーム</h1>
+<button class="btn btn-primary" {{action "get_mine_es"}}>自身の過去ESを取得</button>
+{{#if mine_es_list}}
+  <div class="row width100">
+    <div class="es_header width3" style="display:inline-block">企業名</div>
+    <div class="es_header width3" style="display:inline-block">部署名</div>
+    <div class="es_header width3" style="display:inline-block">職種名</div>
+    {{#each mine_es_list as |mine_es|}}
+      <div class="es_element">
+        <a href="/postes?es_id={{mine_es.ID}}" {{action "get_es_model" mine_es.ID}} style="padding:0.5em">
+        <div class="es_header width3" style="display:inline-block">{{mine_es.Company}}</div>
+        <div class="es_header width3" style="display:inline-block">{{mine_es.Department}}</div>
+        <div class="es_header width3" style="display:inline-block">{{mine_es.Occupation}}</div>
+        </a>
+      </div>
+
+    {{/each}}
+  </div>
+{{/if}}
+
+<div id="mine_es_state"></div>
+<a type="button" class="btn btn-social" href="/postes" {{action "reset_page"}}>新規ESを投稿</a>
+<hr>
+{{#if success_post}}
+  <h1>投稿が完了しました。</h1>
+  <a type="button" class="btn btn-primary" href="/postes" {{action "reset_page"}}>別のESを投稿する</a>
+{{else}}
+  {{#if model}}
+    <div>
+      <h3>現在、下記ESの編集中です。</h3>
+      <p>エントリーシートID:{{es_id}}</p>
+      <p>企業名:{{model.Company}}</p>
+      <p>部署名:{{model.Department}}</p>
+      <p>職種:{{model.Occupation}}</p>
+      <p>登録設問数:{{model.ESDataList.length}}</p>
+      <button type="button" class="btn btn-danger" {{action "open_delete_modal" es_id}}>このESを削除する</button>
+    </div>
+    <div id="delete_state"></div>
+    <hr>
+  {{/if}}
+
+  <form id="es_form" action="/es_post" method="POST">
+    <p class="required">提出企業の業界を選択してください。</p>
+    <select name="industry" class="type_select">
+      <option value=1 selected={{eq model.Industry "1"}}>総合商社</option>
+      <option value=2 selected={{eq model.Industry "2"}}>外資系コンサル</option>
+      <option value=3 selected={{eq model.Industry "3"}}>外資系金融機関（投資銀行等）</option>
+      <option value=4 selected={{eq model.Industry "4"}}>銀行</option>
+      <option value=5 selected={{eq model.Industry "5"}}>証券</option>
+      <option value=6 selected={{eq model.Industry "6"}}>保険</option>
+      <option value=7 selected={{eq model.Industry "7"}}>テレビ</option>
+      <option value=8 selected={{eq model.Industry "8"}}>広告</option>
+      <option value=9 selected={{eq model.Industry "9"}}>出版・印刷</option>
+      <option value=10 selected={{eq model.Industry "10"}}>食品</option>
+      <option value=11 selected={{eq model.Industry "11"}}>不動産</option>
+      <option value=12 selected={{eq model.Industry "12"}}>国内コンサル・シンクタンク</option>
+      <option value=13 selected={{eq model.Industry "13"}}>IT</option>
+      <option value=14 selected={{eq model.Industry "14"}}>情報通信</option>
+      <option value=15 selected={{eq model.Industry "15"}}>新聞・その他マスコミ</option>
+      <option value=16 selected={{eq model.Industry "16"}}>専門商社</option>
+      <option value=17 selected={{eq model.Industry "17"}}>百貨店</option>
+      <option value=18 selected={{eq model.Industry "18"}}>その他流通・小売</option>
+      <option value=19 selected={{eq model.Industry "19"}}>政府系・系統機関</option>
+      <option value=20 selected={{eq model.Industry "20"}}>その他金融（カード・リース等）</option>
+      <option value=21 selected={{eq model.Industry "21"}}>自動車・機械</option>
+      <option value=22 selected={{eq model.Industry "22"}}>電機・精密</option>
+      <option value=23 selected={{eq model.Industry "23"}}>素材</option>
+      <option value=24 selected={{eq model.Industry "24"}}>製薬</option>
+      <option value=25 selected={{eq model.Industry "25"}}>消費財・化粧品</option>
+      <option value=26 selected={{eq model.Industry "26"}}>その他メーカー</option>
+      <option value=27 selected={{eq model.Industry "27"}}>運輸・物流（陸運・海運・倉庫）</option>
+      <option value=28 selected={{eq model.Industry "28"}}>エネルギー</option>
+      <option value=29 selected={{eq model.Industry "29"}}>建設</option>
+      <option value=30 selected={{eq model.Industry "30"}}>ホテル</option>
+      <option value=31 selected={{eq model.Industry "31"}}>旅行</option>
+      <option value=32 selected={{eq model.Industry "32"}}>エンタメ・レジャー</option>
+      <option value=33 selected={{eq model.Industry "33"}}>人材・教育</option>
+      <option value=34 selected={{eq model.Industry "34"}}>交通（鉄道・航空）</option>
+      <option value=35 selected={{eq model.Industry "35"}}>その他サービス</option>
+    </select>
+    <hr>
+    <p class="required">インターンまたは本選考を選択してください。</p>
+    <select name="es_type" class="type_select">
+      <option value="intern" selected={{eq model.ESType "intern"}}>インターン</option>
+      <option value="selection" selected={{eq model.ESType "selection"}}>本選考</option>
+    </select>
+    <p class="required">企業名</p>
+    <input type="text" name="company_name" value="{{model.Company}}">
+    <p>部署がある場合は部署名をご記入ください。</p>
+    <input type="text" name="department_name" value="{{model.Department}}">
+
+    <p>職種があれば、職種名をご記入ください。
+      本選考の場合は必須となります。</p>
+    <input type="text" name="occupation_name" value="{{model.Occupation}}">
+    <p class="required">ES提出時の学位を選択してください。</p>
+    <select name="degree" class="type_select">
+      <option value="学士" selected={{ eq model.Degree "学士"}}>学士</option>
+      <option value="修士" selected={{ eq model.Degree "修士"}}>修士</option>
+      <option value="博士" selected={{ eq model.Degree "博士"}}>博士</option>
+    </select>
+    <p class="required">ESの提出時期をご記入ください。</p>
+    <input type="number" name="year" value="{{if model.Year model.Year 2022}}">年
+    <input type="number" name="month" min="1" max="12" value="{{if model.Month model.Month 1}}">月
+    <p class="required">どの選考段階まで進んだのか選択してください。</p>
+    <select name="how_level" class="type_select">
+      <option value=1 selected={{eq model.HowLevel "1"}}>一次面接・GD</option>
+      <option value=2 selected={{eq model.HowLevel "2"}}>二次面接・GD</option>
+      <option value=3 selected={{eq model.HowLevel "3"}}>三次以降～最終面接</option>
+      <option value=4 selected={{eq model.HowLevel "4"}}>内定・インターン参加</option>
+    </select>
+    <hr>
+    <div>
+      {{#each es_element_list as |es index|}}
+        <div>
+          {{model.ESDataList.index}}
+          <p class="required">設問{{index}}</p>
+          <textarea name="question_{{es.id}}" cols="35" rows="5"
+                    placeholder="例：あなた自身の強みはなんですか。また、その強みを生かして成し遂げたいことを教えてください（200字以内）">{{es.question}}</textarea>
+          <p class="required">設問に対する回答{{index}}</p>
+          <textarea name="answer_{{es.id}}" cols="35" rows="5"
+                    placeholder="例：私の強みは～です。(195字)">{{es.answer}}</textarea>
+          <p></p>
+          <button id="delete_es_button" type="button" class="btn btn-danger"  {{action "delete_es_form" es.id}}>
+            設問{{index}}を削除
+          </button>
+        </div>
+        <hr>
+      {{/each}}
+    </div>
+    <button id="append_es_button" type="button" class="btn btn-social" {{action "append_es_form"}}>ES設問追加</button>
+
+    <hr>
+    <p id="state" class="error"></p>
+    <button type='button' class='btn btn-primary' {{action "upload_es"}}>
+      投稿
+    </button>
+
+  </form>
+{{/if}}
