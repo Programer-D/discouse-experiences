@@ -1,6 +1,6 @@
 {{experiences_header}}
 <h1>エントリーシート投稿フォーム</h1>
-<button class="btn btn-primary" {{action "get_mine_es"}}>自身の過去ESを取得</button>
+<button class="btn btn-primary" {{action "get_mine_es"}}>過去に投稿したES情報を取得</button>
 {{#if mine_es_list}}
   <div class="row width100">
     <div class="es_header width3" style="display:inline-block">企業名</div>
@@ -20,7 +20,7 @@
 {{/if}}
 
 <div id="mine_es_state"></div>
-<a type="button" class="btn btn-social" href="/postes" {{action "reset_page"}}>新規ESを投稿</a>
+<a type="button" class="btn btn-social" href="/postes" {{action "reset_page"}}>ESを新規投稿</a>
 <hr>
 {{#if success_post}}
   <h1>投稿が完了しました。</h1>
