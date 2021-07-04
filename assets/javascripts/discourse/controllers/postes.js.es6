@@ -123,6 +123,7 @@ export default Ember.Controller.extend({
         })
     },
     get_es_model: function (es_id) {
+      this.set('success_post', false);
       const model = ajax('/post_es_detail/' + es_id + '.json')
         .then(d => {
           console.log(d);

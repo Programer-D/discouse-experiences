@@ -93,12 +93,14 @@
     <p>職種があれば、職種名をご記入ください。
       本選考の場合は必須となります。</p>
     <input type="text" name="occupation_name" value="{{model.Occupation}}">
-    <p class="required">ES提出時の学位を選択してください。</p>
+    <p class="required">ES提出時の学位・学年を入力してください。</p>
     <select name="degree" class="type_select">
       <option value="学士" selected={{ eq model.Degree "学士"}}>学士</option>
       <option value="修士" selected={{ eq model.Degree "修士"}}>修士</option>
       <option value="博士" selected={{ eq model.Degree "博士"}}>博士</option>
     </select>
+    <input type="number" name="school_year" value="{{if model.SchoolYear model.SchoolYear 1}}">年生
+
     <p class="required">ESの提出時期をご記入ください。</p>
     <input type="number" name="year" value="{{if model.Year model.Year 2022}}">年
     <input type="number" name="month" min="1" max="12" value="{{if model.Month model.Month 1}}">月

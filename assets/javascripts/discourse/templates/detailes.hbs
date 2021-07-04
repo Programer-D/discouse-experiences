@@ -12,7 +12,7 @@
 
 <h3>大学名:{{model.University}}</h3>
 <h3>学部:{{model.Undergraduate}}</h3>
-<h3>学位:{{model.Degree}}</h3>
+<h3>学位:{{model.Degree}} {{model.SchoolYear}}年生</h3>
 <h3>提出時期:{{model.Year}}年{{model.Month}}月</h3>
 <h3>選考到達段階:
   {{#if (eq model.HowLevel '1') }}
