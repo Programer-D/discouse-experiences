@@ -30,12 +30,13 @@ export function check_required(form_data, es_element_list) {
     have_error = true;
   }
   es_element_list.forEach(id => {
-    if (form_data.get('question_' + id) === "") {
-      $('#state').append('<p class="error-detail"><strong>設問' + id + 'を入力してください。</strong></p>');
+    console.log(id)
+    if (form_data.get('question_' + id.id) === "") {
+      $('#state').append('<p class="error-detail"><strong>設問' + id.id + 'を入力してください。</strong></p>');
       have_error = true;
     }
-    if (form_data.get('answer_' + id) === "") {
-      $('#state').append('<p class="error-detail"><strong>設問の回答' + id + 'を入力してください。</strong></p>');
+    if (form_data.get('answer_' + id.id) === "") {
+      $('#state').append('<p class="error-detail"><strong>設問の回答' + id.id + 'を入力してください。</strong></p>');
       have_error = true;
     }
   })
