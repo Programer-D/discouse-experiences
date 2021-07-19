@@ -221,6 +221,7 @@ class EntrysheetController < ApplicationController
       University: current_user.user_fields['1'],
       Undergraduate: current_user.user_fields['9'],
       SchoolYear: params['school_year'],
+      TestType: params['test_type'],
       Degree: params['degree'],
       ESType: params['es_type'],
       Industry: params['industry'],

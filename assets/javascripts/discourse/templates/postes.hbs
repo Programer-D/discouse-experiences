@@ -101,6 +101,9 @@
     </select>
     <input type="number" name="school_year" value="{{if model.SchoolYear model.SchoolYear 1}}">年生
 
+    <p>筆記試験の種類を記入してください。</p>
+        <input type="text" name="test_type" value="{{model.TestType}}">
+
     <p class="required">ESの提出時期をご記入ください。</p>
     <input type="number" name="year" value="{{if model.Year model.Year 2022}}">年
     <input type="number" name="month" min="1" max="12" value="{{if model.Month model.Month 1}}">月
