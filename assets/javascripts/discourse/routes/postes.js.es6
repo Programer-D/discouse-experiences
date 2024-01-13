@@ -1,8 +1,7 @@
 import {ajax} from 'discourse/lib/ajax';
+import Route from '@ember/routing/route';
 
-console.log('route_edit_es_test1');
-
-export default Ember.Route.extend({
+export default Route.extend({
   setupController: function (controller, model) {
     if (model) {
       console.log('setup_controller')

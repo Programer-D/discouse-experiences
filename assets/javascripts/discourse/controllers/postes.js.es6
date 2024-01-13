@@ -1,5 +1,5 @@
 import {ajax} from 'discourse/lib/ajax';
-
+import Controller from "@ember/controller";
 export function check_required(form_data, es_element_list) {
   let have_error = false;
   if (form_data.get('es_type') === "") {
@@ -44,7 +44,7 @@ export function check_required(form_data, es_element_list) {
   return have_error
 }
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   es_element_list: [],
   current_num: 0,
   success_post: false,

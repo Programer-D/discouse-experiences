@@ -1,7 +1,8 @@
 import {ajax} from 'discourse/lib/ajax';
+import Route from '@ember/routing/route';
 
 console.log('detail-es-route1')
-export default Ember.Route.extend({
+export default Route.extend({
 
   model(params) {
     return ajax('/detailes/' + params.es_id + '.json')

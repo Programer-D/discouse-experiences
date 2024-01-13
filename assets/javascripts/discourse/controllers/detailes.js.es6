@@ -1,5 +1,5 @@
-console.log('detailes_controller');
+import Controller from "@ember/controller";
 
-export default Ember.Controller.extend({
+export default Controller.extend({
   edit_mode: true
 });
